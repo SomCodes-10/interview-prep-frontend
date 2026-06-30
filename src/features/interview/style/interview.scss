@@ -678,3 +678,158 @@ $green-badge-border: rgba(34, 197, 94, 0.35);
     border: 1px solid $red-border;
   }
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Resume Download Overlay
+// ═══════════════════════════════════════════════════════════════════════════════
+.resume-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(10px);
+  animation: overlayFadeIn 0.3s ease;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.resume-overlay__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 480px;
+  width: 90%;
+  padding: 2.5rem 2rem;
+  background: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 50px rgba(225, 27, 113, 0.1),
+    0 0 100px rgba(225, 27, 113, 0.05);
+  animation: resumeCardPulse 3s ease-in-out infinite;
+}
+
+@keyframes resumeCardPulse {
+  0%, 100% { box-shadow: 0 0 50px rgba(225, 27, 113, 0.1), 0 0 100px rgba(225, 27, 113, 0.05); }
+  50%      { box-shadow: 0 0 70px rgba(225, 27, 113, 0.2), 0 0 120px rgba(225, 27, 113, 0.08); }
+}
+
+// Document skeleton
+.resume-overlay__doc {
+  width: 100px;
+  padding: 14px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.75rem;
+}
+
+.doc-line {
+  height: 4px;
+  width: 100%;
+  background: rgba(225, 27, 113, 0.15);
+  border-radius: 2px;
+  animation: docShimmer 1.6s ease-in-out infinite;
+
+  &--title {
+    width: 60%;
+    height: 6px;
+    background: rgba(225, 27, 113, 0.3);
+    margin-bottom: 2px;
+  }
+
+  &--subtitle {
+    width: 45%;
+    height: 4px;
+    background: rgba(225, 27, 113, 0.2);
+    margin-bottom: 4px;
+  }
+
+  &--short {
+    width: 65%;
+  }
+}
+
+@keyframes docShimmer {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+// Heading
+.resume-overlay__heading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: $text-light;
+  margin: 0 0 1.5rem;
+  line-height: 1.4;
+  font-family: system-ui, -apple-system, sans-serif;
+
+  .gradient-text {
+    background: linear-gradient(135deg, $pink-accent, #ff6eb4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+// Progress bar
+.resume-overlay__progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.resume-overlay__progress-bar {
+  height: 100%;
+  width: 35%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, $pink-accent, #ff6eb4);
+  animation: resumeProgressSlide 2s ease-in-out infinite;
+}
+
+@keyframes resumeProgressSlide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(380%); }
+}
+
+// Cycling subtitle
+.resume-overlay__subtitle {
+  font-size: 0.88rem;
+  color: $text-muted;
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  min-height: 3em;
+  font-family: system-ui, -apple-system, sans-serif;
+  animation: resumeFadeInUp 0.45s ease-out;
+}
+
+@keyframes resumeFadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ETA badge
+.resume-overlay__eta {
+  font-size: 0.76rem;
+  color: #52525b;
+  letter-spacing: 0.03em;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  font-family: system-ui, -apple-system, sans-serif;
+}
