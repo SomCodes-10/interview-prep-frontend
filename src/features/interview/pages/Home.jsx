@@ -47,8 +47,17 @@ const Home = () => {
     <div className="home-wrapper">
       {/* Top Nav */}
       <nav className="home-topbar">
-        <button className="topbar-btn" onClick={() => navigate('/login')}>← Back</button>
-        <button className="topbar-btn topbar-btn--logout" onClick={() => { localStorage.removeItem("token"); navigate('/login'); }}>Logout</button>
+        <button className="topbar-btn" onClick={() => {
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = "/"; 
+          }
+        }}>← Back</button>
+        <button className="topbar-btn topbar-btn--logout" onClick={() => {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }}>Logout</button>
       </nav>
 
       {/* Header */}
