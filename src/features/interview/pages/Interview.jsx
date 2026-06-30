@@ -4,6 +4,7 @@ import '../style/interview.scss'
 import '../style/home.scss'
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate, useParams } from 'react-router'
+import WittyLoader from '../components/WittyLoader'
 
 
 
@@ -13,14 +14,6 @@ const NAV_ITEMS = [
     { id: 'roadmap', label: 'Road Map', icon: (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>) },
 ]
 
-const resumeWittyLines = [
-    "Adding extra corporate buzzwords to impress the recruiters... please wait! 📈",
-    "Making sure your formatting doesn't break when an HR manager opens it... 🤞",
-    "Our servers are currently heavy lifting your achievements. Grab a sip of water! 💧",
-    "Hiding the fact that you binge-watched a whole season in one day... processing...",
-    "Aligning your bullet points to pixel-perfection... almost done! ✨",
-    "Sprinkling some ✨ magic dust ✨ on your work experience section...",
-]
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 const QuestionCard = ({ item, index }) => {
@@ -75,8 +68,6 @@ const Interview = () => {
     const { report, getReportById, loading, getResumePdf } = useInterview()
     const { interviewId } = useParams()
     const [ resumeLoading, setResumeLoading ] = useState(false)
-    const [ resumeSubIdx, setResumeSubIdx ] = useState(0)
-    const [ resumeTimeout, setResumeTimeout ] = useState(false)
     const resumeTimeoutRef = useRef(null)
 
     useEffect(() => {
@@ -85,14 +76,6 @@ const Interview = () => {
         }
     }, [ interviewId ])
 
-    useEffect(() => {
-        if (!resumeLoading) return
-        const interval = setInterval(() => {
-            setResumeSubIdx(prev => (prev + 1) % resumeWittyLines.length)
-        }, 3500)
-        return () => clearInterval(interval)
-    }, [resumeLoading])
-
     // Cleanup timeout on unmount
     useEffect(() => {
         return () => { if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current) }
@@ -100,14 +83,11 @@ const Interview = () => {
 
     const handleDownloadResume = async () => {
         setResumeLoading(true)
-        setResumeSubIdx(0)
-        setResumeTimeout(false)
 
         // Start 60s timeout
         resumeTimeoutRef.current = setTimeout(() => {
             setResumeLoading(false)
-            setResumeTimeout(true)
-        }, TIMEOUT_MS)
+        }, 60000)
 
         try {
             await getResumePdf(interviewId)
@@ -122,11 +102,7 @@ const Interview = () => {
     }
 
     if ((loading && !report) || !report) {
-        return (
-            <main className='loading-screen'>
-                <h1>Loading your interview plan...</h1>
-            </main>
-        )
+        return <WittyLoader type="report" loading={true} />
     }
 
     const scoreColor =
@@ -163,44 +139,13 @@ const Interview = () => {
                 </nav>
 
                 {/* Resume Download Overlay */}
-                {resumeLoading && (
-                    <div className='resume-overlay'>
-                        <div className='resume-overlay__card'>
-                            {/* Document skeleton animation */}
-                            <div className='resume-overlay__doc'>
-                                <div className='doc-line doc-line--title'></div>
-                                <div className='doc-line doc-line--subtitle'></div>
-                                <div className='doc-line'></div>
-                                <div className='doc-line'></div>
-                                <div className='doc-line doc-line--short'></div>
-                                <div className='doc-line'></div>
-                                <div className='doc-line doc-line--short'></div>
-                            </div>
-
-                            <h2 className='resume-overlay__heading'>Polishing your resume to <span className='gradient-text'>absolute perfection</span>...</h2>
-
-                            <div className='resume-overlay__progress-track'>
-                                <div className='resume-overlay__progress-bar'></div>
-                            </div>
-
-                            <p className='resume-overlay__subtitle' key={resumeSubIdx}>{resumeWittyLines[resumeSubIdx]}</p>
-
-                            <span className='resume-overlay__eta'>📄 Your PDF will download automatically</span>
-                        </div>
-                    </div>
-                )}
-
-                {/* Resume Timeout Overlay */}
-                {resumeTimeout && (
-                    <div className='resume-overlay'>
-                        <div className='resume-overlay__card timeout-card'>
-                            <span className='timeout-icon'>🌋</span>
-                            <h2 className='resume-overlay__heading'>Oops! Our AI servers are <span className='gradient-text'>heavily overloaded</span> right now.</h2>
-                            <p className='resume-overlay__subtitle'>Please try again after a few moments. We're scaling up to handle the demand!</p>
-                            <button className='timeout-retry-btn' onClick={() => { setResumeTimeout(false) }}>↻ Try Again</button>
-                        </div>
-                    </div>
-                )}
+                <WittyLoader
+                    type="resume"
+                    loading={resumeLoading}
+                    variant="overlay"
+                    onTimeout={() => setResumeLoading(false)}
+                    onRetry={() => {}}
+                />
 
                 <div className='interview-divider' />
 

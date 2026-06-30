@@ -1,0 +1,227 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// WittyLoader — Shared Variables (same palette as home.scss)
+// ═══════════════════════════════════════════════════════════════════════════════
+$bg-dark: #0a0a0c;
+$card-bg: rgba(225, 27, 113, 0.03);
+$border-color: rgba(225, 27, 113, 0.15);
+$pink-accent: #e11b71;
+$text-muted: #94a3b8;
+$text-light: #f8fafc;
+$red-accent: #ef4444;
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Layout Variants
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-fullscreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $bg-dark;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.wl-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(10px);
+  font-family: system-ui, -apple-system, sans-serif;
+  animation: wlOverlayIn 0.3s ease;
+}
+
+@keyframes wlOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Card
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+  padding: 3rem 2.5rem;
+  background: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 40px rgba(225, 27, 113, 0.08),
+    0 0 80px rgba(225, 27, 113, 0.04);
+  animation: wlCardPulse 3s ease-in-out infinite;
+
+  &--timeout {
+    animation: none;
+    box-shadow:
+      0 0 40px rgba(239, 68, 68, 0.08),
+      0 0 80px rgba(239, 68, 68, 0.04);
+  }
+}
+
+@keyframes wlCardPulse {
+  0%, 100% { box-shadow: 0 0 40px rgba(225, 27, 113, 0.08), 0 0 80px rgba(225, 27, 113, 0.04); }
+  50%      { box-shadow: 0 0 60px rgba(225, 27, 113, 0.18), 0 0 100px rgba(225, 27, 113, 0.08); }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Spinner
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-spinner {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 2rem;
+
+  &__ring {
+    position: absolute;
+    inset: 0;
+    border: 3px solid rgba(225, 27, 113, 0.15);
+    border-top-color: $pink-accent;
+    border-radius: 50%;
+    animation: wlSpin 1s linear infinite;
+  }
+
+  &__icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: $pink-accent;
+    animation: wlPulseIcon 2s ease-in-out infinite;
+  }
+}
+
+@keyframes wlSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes wlPulseIcon {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.85); }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Heading & Gradient
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-light;
+  margin: 0 0 1.75rem;
+  line-height: 1.4;
+}
+
+.wl-gradient {
+  background: linear-gradient(135deg, $pink-accent, #ff6eb4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Progress Bar
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+
+  &__bar {
+    height: 100%;
+    width: 40%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, $pink-accent, #ff6eb4);
+    animation: wlSlide 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes wlSlide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Subtitle (Cycling)
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-subtitle {
+  font-size: 0.92rem;
+  color: $text-muted;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  min-height: 3.2em;
+  animation: wlFadeUp 0.5s ease-out;
+}
+
+@keyframes wlFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ETA Badge
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-eta {
+  font-size: 0.78rem;
+  color: #52525b;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Timeout State
+// ═══════════════════════════════════════════════════════════════════════════════
+.wl-timeout-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  display: block;
+  animation: wlBounce 2s ease-in-out infinite;
+}
+
+@keyframes wlBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.wl-retry-btn {
+  background: $pink-accent;
+  color: #fff;
+  border: none;
+  padding: 0.65rem 1.5rem;
+  border-radius: 0.8rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 15px rgba(225, 27, 113, 0.3);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: darken($pink-accent, 7%);
+    box-shadow: 0 6px 20px rgba(225, 27, 113, 0.45);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
