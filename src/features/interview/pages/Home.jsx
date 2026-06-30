@@ -56,7 +56,7 @@ const Home = () => {
         }}>← Back</button>
         <button className="topbar-btn topbar-btn--logout" onClick={() => {
           localStorage.removeItem("token");
-          window.location.href = "/login";
+          window.location.href = "/";
         }}>Logout</button>
       </nav>
 
