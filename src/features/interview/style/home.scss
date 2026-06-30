@@ -1,0 +1,341 @@
+// Variables for easy tweaking
+$bg-dark: #0a0a0c;          // Deep pitch black background
+$card-bg: rgba(225, 27, 113, 0.03); // Translucent background with a pink hint
+$border-color: rgba(225, 27, 113, 0.15); // Soft pink glowing border
+$pink-accent: #e11b71;       // Tumhara core pink color
+$text-muted: #94a3b8;        // Soft grey for labels
+$text-light: #f8fafc;        // Off-white for values/inputs
+
+$green-accent: #22c55e;
+$green-glow: rgba(34, 197, 94, 0.25);
+$yellow-accent: #eab308;
+$red-accent: #ef4444;
+
+.home {
+  flex: 1;
+  width: 100%;
+  background-color: $bg-dark;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: $text-light;
+
+  display: flex;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 1.5rem 2.5rem;
+  box-sizing: border-box;
+  min-height: 0;
+
+  // Responsive design: Mobile pe stack hoga, laptop pe side-by-side
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  // Common styling for both main panels
+  .left, .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: $card-bg;
+    border: 1px solid $border-color;
+    border-radius: 1.2rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  // Left Panel - Full height textarea for Job Description
+  .left {
+    textarea {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.8rem;
+      padding: 1.25rem;
+      color: $text-light;
+      font-size: 1rem;
+      line-height: 1.6;
+      resize: none;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease;
+
+      &::placeholder {
+        color: #52525b;
+      }
+
+      &:focus {
+        border-color: $pink-accent;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+
+  // Right Panel - Inputs and Action Button
+  .right {
+    gap: 1.75rem; // Elements ke beech me wahi uniform professional gap
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem; // Label aur input ke beech ka perfect gap
+
+      label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $text-muted;
+        letter-spacing: 0.03em;
+        text-transform: uppercase; // Formality touch
+      }
+
+      textarea {
+        width: 100%;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.8rem;
+        padding: 1rem;
+        color: $text-light;
+        font-size: 0.95rem;
+        resize: none;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+
+        &::placeholder {
+          color: #52525b;
+        }
+
+        &:focus {
+          border-color: $pink-accent;
+        }
+      }
+
+      // File input specific design
+      input[type="file"] {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.75rem 1rem;
+        border-radius: 0.8rem;
+        color: $text-muted;
+        cursor: pointer;
+        font-size: 0.9rem;
+        outline: none;
+        box-sizing: border-box;
+
+        // File upload button browser customization
+        &::-webkit-file-upload-button {
+          background: rgba(225, 27, 113, 0.1);
+          border: 1px solid rgba(225, 27, 113, 0.3);
+          color: $pink-accent;
+          padding: 0.4rem 1rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
+          font-weight: 500;
+          margin-right: 1rem;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: $pink-accent;
+            color: white;
+          }
+        }
+      }
+    }
+
+    // Main Generate Button
+    .generate-btn {
+      margin-top: auto; // Isko humesha panel ke bottom me push karega
+      background: $pink-accent;
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(225, 27, 113, 0.3);
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background: transform;
+        background-color: darken($pink-accent, 7%);
+        box-shadow: 0 6px 20px rgba(225, 27, 113, 0.45);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+  }
+}
+
+// ─── Wrapper ─────────────────────────────────────────
+.home-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-dark;
+}
+
+// ─── Header ──────────────────────────────────────────
+.home-header {
+  text-align: center;
+  padding: 2.5rem 2rem 1.5rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: $text-light;
+    font-family: system-ui, -apple-system, sans-serif;
+
+    .gradient-text {
+      background: linear-gradient(135deg, $pink-accent, #ff6eb4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    color: $text-muted;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// ─── Recent Reports ──────────────────────────────────────────
+.recent-reports {
+  padding: 0 2.5rem 2rem;
+  margin-top: 1rem;
+  
+  @media (max-width: 768px) {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: $text-light;
+    letter-spacing: -0.01em;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .reports-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .report-item {
+    background-color: $card-bg;
+    border: 1px solid $border-color;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgba(225, 27, 113, 0.06);
+      border-color: rgba(225, 27, 113, 0.3);
+      box-shadow: 0 12px 40px rgba(225, 27, 113, 0.2);
+      transform: translateY(-4px);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: $text-light;
+      margin: 0 0 0.5rem;
+      line-height: 1.3;
+    }
+
+    .report-meta {
+      font-size: 0.85rem;
+      color: $text-muted;
+      margin: 0 0 1rem;
+    }
+
+    .match-score {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0;
+
+      &.score--high {
+        color: $green-accent;
+        text-shadow: 0 0 8px $green-glow;
+      }
+
+      &.score--mid {
+        color: $yellow-accent;
+        text-shadow: 0 0 8px rgba(234, 179, 8, 0.25);
+      }
+
+      &.score--low {
+        color: $red-accent;
+        text-shadow: 0 0 8px rgba(239, 68, 68, 0.25);
+      }
+    }
+  }
+}
+
+// ─── Footer ──────────────────────────────────────────
+.home-footer {
+  padding: 0.75rem 2.5rem 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  text-align: center;
+
+  .ai-note {
+    display: block;
+    font-size: 0.82rem;
+    color: #52525b;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    a {
+      font-size: 0.78rem;
+      color: #52525b;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $text-muted;
+      }
+    }
+
+    .dot {
+      color: #52525b;
+      font-size: 0.7rem;
+    }
+  }
+}

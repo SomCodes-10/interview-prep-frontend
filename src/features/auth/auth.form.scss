@@ -1,0 +1,61 @@
+main {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  .form-container {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    // background-color: rgb(228, 140, 165);
+    // padding: 20px;
+    // border-radius: 15px;
+    background-color: #121212; /* Deep pitch black se thoda sa upar */
+    border: 1px solid #1f1f1f;
+    box-shadow: 0 10px 30px rgba(221, 27, 113, 0.15); /* Niche soft pink shadow ka glow */
+    padding: 1.5rem; 
+    border-radius: 15px;
+
+    
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+
+    input {
+      border: none;
+      outline: none;
+      padding-inline: 1rem;
+      padding-block: 0.75rem;
+      border-radius: 0.8rem;
+    
+    }
+
+    
+  }
+
+  p {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  a {
+    color: #e11b71;
+    text-decoration: none;
+  }
+}
