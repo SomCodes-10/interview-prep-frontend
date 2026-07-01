@@ -138,15 +138,6 @@ const Interview = () => {
                     </button>
                 </nav>
 
-                {/* Resume Download Overlay */}
-                <WittyLoader
-                    type="resume"
-                    loading={resumeLoading}
-                    variant="overlay"
-                    onTimeout={() => setResumeLoading(false)}
-                    onRetry={() => {}}
-                />
-
                 <div className='interview-divider' />
 
                 {/* ── Center Content ── */}
@@ -237,6 +228,15 @@ const Interview = () => {
                     <a href="#">Help Center</a>
                 </div>
             </footer>
+
+            {/* Resume Download Overlay (Moved outside layout to prevent backdrop-filter containing block issues) */}
+            <WittyLoader
+                type="resume"
+                loading={resumeLoading}
+                variant="overlay"
+                onTimeout={() => setResumeLoading(false)}
+                onRetry={() => {}}
+            />
         </div>
     )
 }
