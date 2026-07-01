@@ -1,34 +1,71 @@
-main {
+// Variables matching the Home page
+$bg-dark: #0a0a0c;
+$card-bg: rgba(225, 27, 113, 0.03);
+$border-color: rgba(225, 27, 113, 0.15);
+$pink-accent: #e11b71;
+$text-muted: #94a3b8;
+$text-light: #f8fafc;
+
+.auth-main {
   min-height: 100vh;
   width: 100%;
-
+  background-color: $bg-dark;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: $text-light;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
 
-
-  .form-container {
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    // background-color: rgb(228, 140, 165);
-    // padding: 20px;
-    // border-radius: 15px;
-    background-color: #121212; /* Deep pitch black se thoda sa upar */
-    border: 1px solid #1f1f1f;
-    box-shadow: 0 10px 30px rgba(221, 27, 113, 0.15); /* Niche soft pink shadow ka glow */
-    padding: 1.5rem; 
-    border-radius: 15px;
-
-    
-  }
-
-  .form {
+  .auth-card {
+    max-width: 440px;
+    width: 100%;
+    background-color: $card-bg;
+    border: 1px solid $border-color;
+    border-radius: 1.2rem;
+    padding: 3rem 2.5rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
 
+    @media (max-width: 480px) {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      color: $text-light;
+      
+      .gradient-text {
+        background: linear-gradient(135deg, $pink-accent, #ff6eb4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: $text-muted;
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   .input-group {
@@ -36,26 +73,97 @@ main {
     flex-direction: column;
     gap: 0.5rem;
 
-
-    input {
-      border: none;
-      outline: none;
-      padding-inline: 1rem;
-      padding-block: 0.75rem;
-      border-radius: 0.8rem;
-    
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $text-muted;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
-    
+    input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.8rem;
+      padding: 0.85rem 1rem;
+      color: $text-light;
+      font-size: 1rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, background 0.2s ease;
+
+      &::placeholder {
+        color: #52525b;
+      }
+
+      &:focus {
+        border-color: $pink-accent;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
   }
 
-  p {
-    display: flex;
-    gap: 0.25rem;
+  .primary-button {
+    background: $pink-accent;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(225, 27, 113, 0.3);
+    transition: all 0.2s ease-in-out;
+    margin-top: 0.5rem;
+    width: 100%;
+
+    &:hover {
+      background-color: darken($pink-accent, 7%); // Note: Ensure sass supports this or use #c91763
+      box-shadow: 0 6px 20px rgba(225, 27, 113, 0.45);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
   }
 
-  a {
-    color: #e11b71;
-    text-decoration: none;
+  .auth-footer {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+    p {
+      color: $text-muted;
+      font-size: 0.95rem;
+      margin: 0 0 1.25rem;
+      line-height: 1.5;
+    }
+
+    .styled-link {
+      display: inline-block;
+      color: $pink-accent;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid rgba(225, 27, 113, 0.3);
+      border-radius: 2rem;
+      transition: all 0.2s ease;
+      background: rgba(225, 27, 113, 0.05);
+
+      &:hover {
+        background: rgba(225, 27, 113, 0.1);
+        border-color: $pink-accent;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(225, 27, 113, 0.2);
+      }
+      
+      &:active {
+        transform: translateY(1px);
+      }
+    }
   }
-}
+}

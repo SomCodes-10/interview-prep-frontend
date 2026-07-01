@@ -17,16 +17,19 @@ const Login = () => {
   }
 
   if(loading){
-    return(<main><h1>Loading...</h1></main>)
+    return(<main className="auth-main"><h1>Loading...</h1></main>)
   }
 
   if(user){
     return <NavigateComponent to={'/'} />
   }
   return (
-    <main>
-      <div className="form-container">
-        <h1>Login</h1>
+    <main className="auth-main">
+      <div className="auth-card">
+        <div className="auth-header">
+          <h1>Welcome <span className="gradient-text">Back</span></h1>
+          <p className="subtitle">Continue your interview preparation where you left off.</p>
+        </div>
 
         <form onSubmit={handleSubmit} >
           <div className="input-group">
@@ -44,7 +47,11 @@ const Login = () => {
 
           <button className='button primary-button'>Login</button>
         </form>
-          <p>Do not have an account?<Link to={"/register"}>Register</Link></p>
+        
+        <div className="auth-footer">
+          <p>New here?<br/>Create your account and generate AI-powered interview plans and ATS-friendly resumes.</p>
+          <Link to={"/register"} className="styled-link">Create Account</Link>
+        </div>
       </div>
     </main>
   )
